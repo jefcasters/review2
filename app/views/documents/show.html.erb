@@ -1,0 +1,141 @@
+<% content_for :backButton do %>
+  <%= link_to 'Back', user_documents_path(@user) %>
+<% end %>
+
+<% content_for :title do %>
+  Document:  <%= @document.title %>
+<% end %>
+
+
+<!-- Show add file only as admin -->
+<% if current_user.admin==true %>
+  <div style="width:180px; margin:0 auto;">
+    <%= form_for([@document, @document.images.build]) do |f| %>
+      <%= f.file_field :foto %>
+      <p>
+        <% if @images.count > 0 %>
+          <%= f.submit "upload new version" %>
+        <% else %>
+          <%= f.submit "upload a first version" %>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+<!-- end -->
+
+
+
+  <% if @images.count > 0 %>
+    <% i = 0 %>
+    <% @images.each do |image| %>
+      <% if i == 0 %>
+        <% if current_user.admin %>
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+              <p style="text-align:right;">
+                <%= link_to user_document_image_path(@user,@document,image), method: :delete,data: { confirm: "Are you sure you want to delete this image?" } do %>
+                  <span class="glyphicon glyphicon-remove-circle"></span> Delete this image
+                <% end %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+          <!-- LOAD LATEST IMAGE IN BIGGER SIZE -->
+        <div class="row">
+          <%= link_to(user_document_image_path(@user, @document,image)) do %>
+            <div class="col-xs-8 col-xs-offset-2 latest_image" style="height:500px; background-image:url(<%= image.foto.url %>);">
+            </div>
+          <% end %>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-2">
+            <% if image.comments.last == nil %>
+              There are no comments on this image yet
+            <% else %>
+              <% j = 0 %>
+              <p style="margin-top:10px; margin-bottom:5px;margin-left:5px;">Comments:</p>
+              <hr>
+              <ul>
+                <% image.comments.each do |comment| %>
+                  <li> <%= comment.comment_name %>: <%= comment.value %> </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- DISPLAY PREVIOUS VERSION DiVIDER -->
+      <% if i == 1 %>
+        <div class="row">
+          <div class="col-xs-12" align='center'>
+            <h3>Previous versions</h3>
+            <hr />
+          </div>
+        </div>
+      <% end %>
+
+      <!-- SHOW OLDER VERSION IMAGES -->
+      <% if i > 0 %>
+        <div class="row">
+          <div class="col-xs-12" style="text-align:center;">
+            <p ><strong><%= image.created_at.to_time.strftime('%B %e at %l:%M %p') %></strong></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <%= link_to(user_document_image_path(@user, @document,image)) do %>
+              <div class="overview_thumb" style="background-image:url(<%= image.foto.url %>);">
+              </div>
+             <% end %>
+          </div>
+          <div class="col-xs-6 border-left" style="min-height: 250px;">
+            <p style="margin-bottom:5px;">Comments:</p>
+            <hr>
+            <% if image.comments.last == nil %>
+              <p style="margin-top:5px;">There are no comments on this image yet</p>
+            <% else %>
+
+              <ul style="margin-top:5px;  ">
+                <% image.comments.each do |comment| %>
+                  <li> <%= comment.comment_name %>: <%= comment.value %> </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% i = i +1 %>
+    <% end %>
+  <% else %>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <p style="font-size:1.5em; text-align:center; line-height:120%;"> Hey admin! You have not uploaded an image for this document yet.<br>
+        Choose an image and click on the button above.</p>
+    </div>
+  </div>
+  <% end %>
+
+  <%= javascript_tag do %>
+    $(function() {
+      $('#new_image').submit(function() {
+        // return false to cancel form action
+        var fileName = $("#image_foto").val();
+        if(fileName) { // returns true if the string is not empty
+          return true;
+        } else { // no file was selected
+          alert("Oops! looks like you forgot to select a file. Select a file and try again");
+          return false;
+        }
+      });
+  });
+  <% end %>
+<!-- image_tag image.foto.url(:thumb)
+      link_to 'Show', user_document_image_path(@user, @document,image)
+      link_to 'Delete', [image.document, image], method: :delete, data: { confirm: 'Are you sure?' } -->
+
+
+
+

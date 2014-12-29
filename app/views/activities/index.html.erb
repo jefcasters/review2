@@ -1,0 +1,48 @@
+<% content_for :title do %>
+  Activity log
+<% end %>
+
+
+<% date = Date.new %>
+<%  @activities.each do |activity| %>
+  <% if activity.created_at > date.at_beginning_of_day() %>
+    <p style="text-align:center">Today:</p>
+  <% end %>
+  <% if activity.created_at < date.at_beginning_of_day() && activity.created_at > date.yesterday %>
+    <p style="text-align:center">yesterday:</p>
+  <% end %>
+  <% if activity.created_at < date.at_beginning_of_day() && activity.created_at > date.yesterday %>
+    <p style="text-align:center">yesterday:</p>
+  <% end %>
+  <% if activity.created_at < date.yesterday && activity.created_at > date.beginning_of_week %>
+    <p style="text-align:center">earlier this week:</p>
+  <% end %>
+  <% if activity.created_at < date.beginning_of_week %>
+    <p style="text-align:center">more than a week ago:</p>
+  <% end %>
+
+  <% if activity.trackable %>
+    <% case activity.key %>
+    <% when "comment.create"%>
+      <div class="activity">
+        <%= activity.owner.name %>  wrote a new comment on <%= link_to(activity.trackable.document_name, user_document_image_path(activity.trackable.user_id,activity.trackable.document_id,activity.trackable.image_id)) %>
+      </div>
+    <% when "document.create" && activity.trackable %>
+      <div class="activity">
+        <%= activity.owner.name %> created a new document: <%= link_to(activity.trackable.title, user_document_path(activity.trackable.user_id, activity.trackable.id)) %>
+      </div>
+    <% when "image.create" && activity.trackable %>
+      <div class="activity">
+        <%= activity.owner.name %> Uploaded a new version of <%= link_to(activity.trackable.document_name, user_document_path(activity.trackable.user_id, activity.trackable.document_id)) %>
+      </div>
+    <% else %>
+   <!-- Something happened but we dont really care -->
+    <% end %>
+  <% end %>
+
+
+
+
+  <%= activity.inspect %><br>
+  <%= activity.trackable.inspect %>
+<% end %>

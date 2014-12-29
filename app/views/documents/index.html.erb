@@ -1,0 +1,117 @@
+<!-- Make sure a normal user cant press return to acces user list (admin only) -->
+<% if current_user.admin==true %>
+  <% content_for :backButton do %>
+    <%= link_to 'Back', users_path %>
+  <% end %>
+<% end %>
+
+<% content_for :title do %>
+  Welcome <%= @user.name %>
+<% end %>
+<div class="row">
+  <div class="col-xs-3 col-xs-offset-3">
+     <div class="glyphicon glyphicon-user" style="font-size:10em; float:right;"></div>
+  </div>
+  <div class="col-xs-6">
+    <p class="bubble" style="margin-left:-10px;">
+      <% if current_user.admin%>
+        <% if @documents.count > 0 %>
+          <span>Hi <%= current_user.name %>, These are all <%= @user.name.capitalize %>'s documents, hover over an image to see all available actions. </span>
+        <% else %>
+          <span>Hi <%= current_user.name %>, <%= @user.name.capitalize  %> does not have any documents yet. Create a new document and upload an image </span>
+        <% end %>
+      <% else %>
+        <% if @documents.count > 0 && @documents.last.images.count > 0 %>
+          <span>Hi <%= current_user.name %>, These are all your documents, hover over the image to see all available actions.</span><br>
+        <% else %>
+          <span>Hi <%= current_user.name %>, the desginer has not created any documents yet. Please check back in a little while</span>
+        <% end %>
+      <% end %>
+
+
+    </p>
+  </div>
+</div>
+
+<% if current_user.admin==true %>
+ <%= link_to(new_user_document_path(@user,@document)) do %>
+    <div><span class="center_span">Create a new document for this user</span> </div>
+  <% end %>
+<% end %>
+
+  <% @documents.each do |document| %>
+ <% if document.images.last != nil %>
+    <div class="row">
+      <div class="col-xs-6">
+         <div class="index_active_item" style="background-image:url(<%= document.images.last.foto.url %>); width:300px; height:300px;">
+            <div class="img_overlay">
+
+              <!-- Delete document button ADMINS ONLY -->
+              <% if current_user.admin==true %>
+                <p class="delete_document" style="">
+                  <%= link_to user_document_path(@user,document), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <span class="glyphicon glyphicon-remove-circle" style="margin-right:5px;"></span>delete this document
+                  <% end %>
+                </p>
+              <% end %>
+
+              <div style="width:250px; height:150px; text-align:center; padding-top:69px; margin-right:25px; margin-left:25px; border-bottom:2px solid white;">
+                <p style=""><%= link_to(user_document_image_path(@user, document,document.images.last)) do %><span class="glyphicon glyphicon-pencil" style="margin-right:10px"></span>Annotate<% end %></p>
+              </div>
+              <div style="width:300px; height:150px; text-align:center; padding-top:69px;">
+                <p><%= link_to(user_document_path(@user, document)) do %> <span class="glyphicon glyphicon-eye-open" style="margin-right:10px"></span>View History <% end %></p>
+              </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="documents_comment_container">
+        Comments:
+        <hr width="300px">
+        <ul>
+          <% document.images.last.comments.each do |comment| %>
+            <li><%= comment.comment_name %>: <%= comment.value %>  </li>
+          <% end %>
+        </ul>
+      </div>
+      </div>
+    </div>
+    <% else %>
+      <% if current_user.admin%>
+        <div class="row">
+          <div class="col-xs-6">
+             <div class="index_active_item" style="background-image:url(/assets/no-image.jpg); width:300px; height:300px;">
+                No image avaiable, please upload an image first
+                <div class="img_overlay">
+
+                  <!-- Delete document button ADMINS ONLY -->
+                  <% if current_user.admin==true %>
+                    <p class="delete_document" style="">
+                      <%= link_to user_document_path(@user,document), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                        <span class="glyphicon glyphicon-remove-circle" style="margin-right:5px;">
+                        </span>delete this document
+                      <% end %>
+                    </p>
+                  <% end %>
+
+                  <div style="width:250px; height:150px; text-align:center; padding-top:69px; margin-right:25px; margin-left:25px; border-bottom:2px solid white;">
+                    <p style=""><span class="glyphicon glyphicon-pencil" style="margin-right:10px"></span>Annotate <span style="font-size:0.5em;" > (not avaiable) </span></p>
+                  </div>
+                  <div style="width:300px; height:150px; text-align:center; padding-top:69px;">
+                    <p><%= link_to(user_document_path(@user, document)) do %> <span class="glyphicon glyphicon-eye-open" style="margin-right:10px"></span>upload image <% end %></p>
+                  </div>
+                </div>
+
+                </div>
+             </div>
+          </div>
+        <% end %>
+    </div>
+    <% end %>
+
+
+  <% end %>
+
+     </div>
+  </div>
+</div>

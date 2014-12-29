@@ -1,0 +1,26 @@
+<% content_for :backButton do %>
+  <%= link_to 'Back', user_documents_path %>
+<% end %>
+
+<h1>New document</h1>
+
+<%= render 'form' %>
+
+
+
+
+<%= javascript_tag do %>
+  $(function() {
+    $('#new_document').submit(function(){
+      // return false to cancel form action
+      if($('#document_title').val().length > 0){
+        // returns true if the string is not empty
+        return true;
+      } else { // no file was selected
+        alert("Looks like you forgot to pick a title. \nPlease fill in the title field before continuing.");
+        $('#document_title').focus();
+        return false;
+      }
+    });
+});
+<% end %>

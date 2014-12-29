@@ -1,0 +1,6 @@
+
+var append_string = '<div class="image-comment" id="<%= @comment.id %>"><%= @comment.value %><div class="image-comment-buttons-container"><%= link_to user_document_image_comment_path(@user,@document,@image,@comment), method: :delete,data: { confirm: "Are you sure you want to delete this comment?" } do %> <div class="image-comment-delete "> </div><% end %><%= link_to( edit_user_document_image_comment_path(@user,@document,@image,@comment)) do %><div class="image-comment-edit "></div><% end %></div></div>';
+
+//appendComment(append_string);
+
+appendComment(append_string);

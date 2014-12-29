@@ -1,0 +1,79 @@
+<% content_for :backButton do %>
+  <%= link_to 'Back', user_document_path(@user,@document) %>
+<% end %>
+
+<% content_for :title do %>
+  Document:  <%= @document.title %>
+<% end %>
+
+<div class="row">
+  <div class="col-xs-1">
+     <div class="glyphicon glyphicon-user" style="font-size:10em;"></div>
+  </div>
+  <div class="col-xs-10">
+     <p class="bubble">How do you like this design? Feel free to leave any comments on the right, or select an area on the image to talk about a specific part.  </p>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-xs-8" >
+
+    <% if current_user.admin %>
+      <p style="text-align:right;">
+        <%= link_to user_document_image_path(@user,@document,@image), method: :delete,data: { confirm: "Are you sure you want to delete this image?" } do %>
+          <span class="glyphicon glyphicon-remove-circle"></span> Delete this image
+        <% end %>
+      </p>
+      <% end %>
+      <% width, height = @image.dimensions %>
+      <%=  image_tag(@image.foto.url, width: '750', :class => 'annofftatable', :id => 'annotatableImage') %>
+  </div>
+  <div class="col-xs-4" >
+    <div id="image-comment-container">
+      <div id="comments">
+      <p class="image-comment-container-title">comments</p>
+      <hr/>
+
+      <% @image.comments.each do |comment| %>
+      <div class="image-comment" id="comment<%= comment.id %>">
+        <% if comment.comment_name == current_user.name %>
+          <div class="image-comment-buttons-container">
+            <%= link_to user_document_image_comment_path(@user,@document,@image,comment), method: :delete,data: { confirm: "Are you sure you want to delete this comment?" } do %>
+              <div class="image-comment-delete">
+              </div>
+            <% end %>
+            <div class="image-comment-edit" onClick="editComment(<%= comment.id %>)" ></div>
+          </div>
+        <% end %>
+        <div class="image-comment-content"><%= comment.comment_name %>: <span id='value'><%= comment.value %></span></div>
+
+
+        </div>
+      <% end %>
+      </div>
+
+
+<%= form_for([@user, @document, @image, @image.comments.build],  remote: true) do |f| %>
+  <p>
+    Comment: <br>
+    <%= f.text_field :value %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+</div>
+  </div>
+</div>
+
+
+<%= javascript_tag do %>
+  var url_for_annotations = ("<%= "/users/#{@user.id.to_s}/documents/#{@document.id.to_s}/images/#{@image.id.to_s}/annotations" %>");
+  var url_for_comments = ("<%= "/users/#{@user.id.to_s}/documents/#{@document.id.to_s}/images/#{@image.id.to_s}/comments" %>");
+  <!-- window.onload=function(){;}; -->
+  $( "#annotatableImage" ).load(function() {init()});
+
+
+<% end %>
+

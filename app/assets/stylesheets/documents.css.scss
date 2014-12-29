@@ -1,0 +1,126 @@
+// Place all the styles related to the documents controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.index_active_item {
+    display: inline-block;
+    margin: 3px;
+    background-position: center center;
+    background-size: cover;
+    float: right;
+    border: 1px solid black;
+    box-shadow: 1px 1px 5px #888888;
+    position:relative;
+}
+
+.index_active_item .img_overlay{
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    // position: relative;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.index_active_item .img_overlay p{
+    color:white;
+    font-size: 2em;
+}
+
+.index_active_item .img_overlay p a{
+    color:white;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+div{
+    border: 0px solid black;
+}
+
+.delete_document{
+    position:absolute;
+    z-index:1000;
+    top:1px;
+    right:1px;
+
+    font-size:1em !important;
+}
+/*Hover effects*/
+
+.index_active_item:hover .img_overlay {
+    display: block;
+}
+
+.index_active_item .img_overlay p a:hover{
+    color:white;
+    text-decoration: none;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+/* documents index */
+
+.center_span{
+    margin: 0 auto;
+    display:table;
+}
+
+.latest_image{
+  background-position: center center;
+  background-size: cover;
+  border: 1px solid black;
+}
+
+
+.border_left{
+    border-left:3px solid #ccc;
+    // min-height: 100px;
+}
+
+hr
+{
+    margin:0px !important;
+    border: none !important;
+    height: 3px !important;
+    /* Set the hr color */
+    color: #89867e !important;
+    background-color: #89867e !important;
+}
+
+.overview_thumb
+{
+    background-position: center center;
+    background-size: cover;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    float:right;
+    -webkit-filter: grayscale(100%);
+    width:250px;
+    height:250px;
+    border: 1px solid black;
+}
+
+.overview_thumb:hover
+{
+  -webkit-filter: none;
+    -moz-filter: none;
+    -ms-filter: none;
+    -o-filter: none;
+    filter: none;
+}
+
+.border-left{
+    border-left:3px solid #ccc;
+}
+

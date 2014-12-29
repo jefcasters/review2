@@ -1,0 +1,119 @@
+// Place all the styles related to the images controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#annotatableImage{
+  border:1px solid black;
+  box-shadow: 1px 1px 5px #888888;
+}
+
+.annotatable{
+  border:1px solid black;
+  box-shadow: 1px 1px 5px #888888;
+}
+
+.bubble
+{
+margin-left:30px;
+position: relative;
+width: 400px;
+height: 90px;
+padding: 3px;
+background: #e6e6e6;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 10px;
+padding:7px;
+box-shadow: 1px 1px 5px #888888;
+}
+
+.bubble:after
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 12px 20px 12px 0;
+border-color: transparent #e6e6e6;
+display: block;
+width: 0;
+z-index: 1;
+left: -20px;
+top: 21px;
+}
+
+//comments
+#image-comment-container
+{
+  // margin-top:12px;
+  margin-bottom:10px;
+  background: #e6e6e6;
+  padding: 5px;
+
+  border:1px solid black;
+  box-shadow: 1px 1px 5px #888888;
+}
+
+.image-comment-container-title
+{
+  margin-bottom: 2px;
+}
+
+.image-comment
+{
+  margin:5px;
+  border:1px solid black;
+  padding:5px;
+  // -webkit-transition: all 1000ms;
+  //   -moz-transition: all 1000ms;
+  //   -ms-transition: all 1000ms;
+  //   -o-transition: all 1000ms;
+  //   transition: all 1000ms;
+}
+
+.image-comment:hover .image-comment-buttons-container
+{
+  display: block;
+  visibility: visible;
+}
+
+.image-comment-delete {
+  background: url(image-path('delete.png'));
+  width:16px;
+  height:16px;
+  text-indent:100px;
+  overflow:hidden;
+  float:right;
+}
+
+
+.image-comment-edit {
+  background: url(image-path('pencil.png'));
+  width:16px;
+  height:16px;
+  text-indent:100px;
+  overflow:hidden;
+  margin-right:4px;
+  float:right;
+  cursor: pointer;
+}
+
+.image-comment-edit:hover {
+  opacity: 1.0;
+
+}
+
+.image-comment-buttons-container{
+  // display: none;
+  visibility: hidden;
+  text-indent:100px;
+  width:50px;
+  float:right;
+  height:18px;
+  overflow:hidden;
+  opacity:0.4;
+}
+
+.image-comment-content{
+  width:266px;
+  margin:0px 5px 0px 5px;
+}

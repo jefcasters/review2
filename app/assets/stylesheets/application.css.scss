@@ -1,0 +1,87 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *require 'masonry/basic'
+ *= require 'masonry/centered'
+ *= require 'masonry/fluid'
+ *= require 'masonry/gutters'
+ *= require 'masonry/infinitescroll'
+ *= require 'masonry/right-to-left'
+ *= require 'masonry/transitions'
+ */
+
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+//Set defaults
+body {
+  // font-family: 'BlairMdITC TT';
+  font-family: 'Ubuntu';
+  color: #89867e;
+  // background: #e6e6e6;
+  background: #fff;
+ }
+
+
+#header{
+  width:100%;
+  height:80px;
+  background:#89867e;
+  color:#e6e6e6;
+}
+
+
+#title{
+  margin-top:0px;
+  padding-top:30px;
+
+}
+
+#sign_out_button{
+  float:right;
+  padding-right:20px;
+  color:white;
+  margin-top:30px;
+}
+
+#sign_out_button a{
+  color:#e6e6e6;
+  font-size:1.1em;
+}
+
+#sign_out_button a:hover{
+  background-color: #89867e;
+}
+
+#back_button{
+  margin-left:20px;
+  margin-top: 30px;
+}
+
+#back_button a{
+  color:#e6e6e6;
+  font-size:1.1em;
+}
+
+#back_button a:hover{
+  color:#e6e6e6;
+  font-size:1.1em;
+  background-color: #89867e;
+}
+
+.notice{
+  font-size: 1.1em;
+}

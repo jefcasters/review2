@@ -1,0 +1,44 @@
+<h1>Listing all users</h1>
+
+<% if @user.admin %>
+  <%= @user.email %> <%= @user.name %>
+  <% else %>
+  <h1>USER IS A USER</h1>
+  <% end%>
+
+<table cellpadding="10px" border="1">
+  <thead>
+    <tr>
+      <th><%= sortable "name"%></th>
+      <th><%= sortable "id"%></th>
+      <th><%= sortable "email"%></th>
+      <!-- sortable "encrypted_password", " password" -->
+      <th><%= sortable "admin"%></th>
+      <th><%= sortable "last_active_at"%></th>
+      <th><%= sortable "current_sign_in_at"%></th>
+      <th><%= sortable "last_sign_in_at"%></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.admin %></td>
+        <td><%= user.last_active_at %></td>
+        <td><%= user.current_sign_in_at %></td>
+        <td><%= user.last_sign_in_at%></td>
+        <td><%= link_to("Profile", user_documents_path(user)) %></td>
+        <td><%= button_to "Delete this account", user_registration_path, data: { confirm: "Are you sure?" }, method: :delete, params: {user_to_delete:user.id} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to "Create new user",  new_user_registration_path %><br />
+
+
