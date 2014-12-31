@@ -17,7 +17,6 @@ class DocumentsController < ApplicationController
 
   def index
     # Shows all documents, the ones that were last updated first
-
     @documents = @user.documents.order('updated_at DESC')
     respond_with(@user,@documents)
   end
@@ -41,7 +40,6 @@ class DocumentsController < ApplicationController
     @document.user_id = params[:user_id]
     @document.created_by = current_user.name
     @document.save
-    # flash[:notice] = "Document Succesfuly created. Please upload a first version of this document."
     respond_with(@user,@document)
   end
 

@@ -69,9 +69,10 @@
         Comments:
         <hr width="300px">
         <ul>
-          <% document.images.last.comments.each do |comment| %>
-            <li><%= comment.comment_name %>: <%= comment.value %>  </li>
-          <% end %>
+            <% document.images.last.comments.each do |comment| %>
+              <li><%= comment.comment_name %>: <%= comment.value %>  </li>
+            <% end %>
+
         </ul>
       </div>
       </div>
@@ -115,3 +116,5 @@
      </div>
   </div>
 </div>
+
+
