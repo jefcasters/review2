@@ -64,8 +64,8 @@ Rails.application.configure do
     :port                 => 465,
     :domain               => "washingtongraphic.com",
     :tls                  => true,
-    :user_name            => ENV["EMAILA"],
-    :password             => ENV["EMAILP"],
+    :user_name            => "support@washingtongraphic.com",
+    :password             => "test",
     :authentication       => "login",
     :enable_starttls_auto => true
   }
